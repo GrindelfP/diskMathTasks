@@ -5,7 +5,7 @@ import java.lang.Exception
 fun main() {
     val n = getValueOfN()
     val matrix = MatrixThree(n, n)
-    val adjacencyMatrix = AdjacencyMatrixThree(matrix)
+    val adjacencyMatrix = AdjacencyMatrixElse(matrix)
     println(adjacencyMatrix.getNumberOfEdges())
 }
 
@@ -22,7 +22,7 @@ private fun getValueOfN(): Int {
 }
 
 
-private class AdjacencyMatrixThree(
+private class AdjacencyMatrixElse(
     private var matrix: MatrixThree
 ) {
 

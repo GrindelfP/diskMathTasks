@@ -4,7 +4,7 @@ import java.lang.Exception
 
 fun main() {
     val n = getValueOfN()
-    val matrix = MatrixThree(n, n)
+    val matrix = MatrixElse(n, n)
     if (!matrix.isSymmetric()) throw Exception("Not symmetric!")
     val adjacencyMatrix = AdjacencyMatrixThree(matrix)
     if (!adjacencyMatrix.isMatrixOfSimpleGraph()) throw Exception("Not symmetric!")
@@ -25,7 +25,7 @@ private fun getValueOfN(): Int {
 
 
 private class AdjacencyMatrixThree(
-    private var matrix: MatrixThree
+    private var matrix: MatrixElse
 ) {
 
     fun isMatrixOfSimpleGraph(): Boolean {
@@ -58,7 +58,7 @@ private class AdjacencyMatrixThree(
     }
 }
 
-private class MatrixThree(
+private class MatrixElse(
     private val numberOfRows: Int,
     private val numberOfColumns: Int
 ) {
