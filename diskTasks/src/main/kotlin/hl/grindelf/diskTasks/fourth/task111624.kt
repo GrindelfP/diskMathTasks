@@ -10,6 +10,17 @@ fun main() {
     }
 }
 
+data class Route(
+    val route: MutableList<Int>,
+    val weight: Double
+)
+
+data class City(
+    val x: Int,
+    val y: Int,
+    val number: Int
+)
+
 const val LOWER_NUMBER_OF_CITIES = 2
 const val UPPER_NUMBER_OF_CITIES = 5000
 
@@ -118,14 +129,3 @@ fun getNumOfCities(): Int {
 
     return numOfCities
 }
-
-data class Route(
-    val route: MutableList<Int>,
-    val weight: Double
-)
-
-data class City(
-    val x: Int,
-    val y: Int,
-    val number: Int
-)
