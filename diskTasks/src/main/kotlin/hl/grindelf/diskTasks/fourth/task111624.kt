@@ -4,14 +4,15 @@ import kotlin.math.pow
 import kotlin.math.sqrt
 
 fun main() {
-    val bestRoute = getBestRoute()
-    bestRoute.route.forEach {
-        print("$it ")
+    val bestRoute = getBestRoute().nodes
+    bestRoute.forEach {
+        val realNumber = it + 1
+        print("$realNumber ")
     }
 }
 
 data class Route(
-    val route: MutableList<Int>,
+    val nodes: MutableList<Int>,
     val weight: Double
 )
 
@@ -50,27 +51,29 @@ fun getBestRoute(): Route {
 
 fun closestNeighbor(startCityNumber: Int): Route {
     val visitedCities = mutableListOf<Boolean>()
-    var weight = 0.0
-    val route = mutableListOf<Int>()
-    for (i in cityList.indices) visitedCities.add(false)
-    var currentCity = cityList[startCityNumber]
-    visitedCities[currentCity.number] = true
+    for (i in cityList.indices) visitedCities.add(false) // declaring and filling list of visited cities
+    var weight = 0.0 // setting initial weight to 0
+    val route = mutableListOf<Int>() // declaring list representing route
+    var currentCity = cityList[startCityNumber] // setting first current city
+    route.add(currentCity.number) // adding first current city to the route
+    visitedCities[currentCity.number] = true // marking the first city as a visited
     while (visitedCities.indexOf(false) != -1) {
-        route.add(currentCity.number)
-        val closestCity = getClosestCityOf(currentCity)
-        weight += closestCity[1] as Double
-        currentCity = closestCity[0] as City
-        visitedCities[currentCity.number] = true
+        val closestCityParams = getClosestCityOf(currentCity, visitedCities)
+        val closestCity = closestCityParams[0] as City
+        route.add(closestCity.number)
+        visitedCities[closestCity.number] = true
+        weight += closestCityParams[1] as Double // ?????????
+        currentCity = closestCity
     }
     return Route(route, weight)
 }
 
-fun getClosestCityOf(city: City): List<Any> {
+fun getClosestCityOf(city: City, visitedCities: MutableList<Boolean>): List<Any> {
     var minimumDistance = Double.MAX_VALUE
     var minimumDistanceCityNumber = 0
     val distances = cityMatrix[city.number]
     for (i in distances.indices) {
-        if (distances[i] != 0.0 && distances[i] < minimumDistance) {
+        if (!visitedCities[i] && distances[i] != Double.MAX_VALUE && distances[i] < minimumDistance) {
             minimumDistance = distances[i]
             minimumDistanceCityNumber = i
         }
@@ -84,7 +87,7 @@ fun getDistance(i: Int, j: Int) = when {
                 (cityList[j].y - cityList[i].y).toDouble().pow(2)
     )
 
-    else -> 0.0
+    else -> Double.MAX_VALUE
 }
 
 fun getCityList(numOfCities: Int): MutableList<City> {
