@@ -1,3 +1,4 @@
+/*
 package hl.grindelf.diskTasks.fourth
 
 import kotlin.math.pow
@@ -131,4 +132,4 @@ fun getNumOfCities(): Int {
     }
 
     return numOfCities
-}
+}*/
